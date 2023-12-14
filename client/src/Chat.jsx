@@ -9,14 +9,14 @@ const Chat = ({ socket, username, room }) => {
     const message = {
       room,
       author: username,
-      message: currentMessage,
+      content: currentMessage,
       time:
         new Date(Date.now()).getHours() +
         ":" +
         new Date(Date.now()).getMinutes(),
     };
 
-    await socket.emit("send_message", message);
+    await socket.emit("send_message", message, ({ reply }) => {});
     setMessageList((prevMessageList) => [...prevMessageList, message]);
     setCurrentMessage("");
   };

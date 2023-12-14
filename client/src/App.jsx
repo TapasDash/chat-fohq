@@ -3,7 +3,7 @@ import "./App.css";
 import io from "socket.io-client";
 import Chat from "./Chat";
 
-const socket = io.connect("http://localhost:3001", {
+const socket = io.connect("http://localhost:5000", {
   auth: {
     token: "abc",
   },
@@ -20,7 +20,14 @@ function App() {
     console.log(room, username);
     if (username && room) {
       console.log("kkrs");
-      socket.emit("join_room", room);
+      socket.emit(
+        "join_room",
+        {
+          employer: "65526f78e3ddd88fd56acbdd",
+          jobSeeker: "65649741570328d1c09b5f4d",
+        },
+        ({ chatId }) => console.log(`CHTA ID: ${chatId} has been recieved`)
+      );
       setIsJoined(true);
     }
   };
